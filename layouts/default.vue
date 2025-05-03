@@ -1,5 +1,5 @@
 <template>
-  <div class="h-[100vh] w-[100vw] bg-[#0a000a]">
+  <div class="absolute min-h-[100vh] min-w-[100vw] bg-[#0a000a]">
     <slot />
   </div>
 </template>
