@@ -1,12 +1,20 @@
 <script setup lang="ts">
-let active = 'house';
+const router = useRouter();
+
+const active = router.currentRoute.value.name;
 </script>
 <template>
-  <div class="w-fit flex relative gap-10px bg-[#252525] py-[16px] px-[24px] rounded-12px">
-    <Icon name="gravity-ui:house" size="32px" class="color-[#575757] menuBarButton"
-      :class="{ active: active === 'house' }" mode="svg" />
-    <Icon name="tabler:stack" size="32px" class="color-[#575757] menuBarButton"
-      :class="{ active: active === 'projects' }" mode="svg" />
+  <div
+    class="fixed bottom-10px w-fit flex gap-10px bg-[#252525] py-[16px] px-[24px] rounded-12px left-[50%] transform-translate-x-[-50%] user-drag-none"
+    ondragstart="return false">
+    <NuxtLink href="/">
+      <Icon name="gravity-ui:house" size="32px" class="color-[#575757] menuBarButton"
+        :class="{ active: active === 'index' }" mode="svg" />
+    </NuxtLink>
+    <NuxtLink href="/files">
+      <Icon name="tabler:stack" size="32px" class="color-[#575757] menuBarButton"
+        :class="{ active: active === 'files' }" mode="svg" />
+    </NuxtLink>
     <Icon name="tabler:bell" size="32px" class="color-[#575757] menuBarButton"
       :class="{ active: active === 'notifications' }" mode="svg" />
     <div class="self-center w-1px h-16px bg-[#3f3f3f]" />
