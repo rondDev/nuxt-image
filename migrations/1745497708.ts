@@ -48,6 +48,7 @@ export async function up(db: Kysely<any>): Promise<void> {
     .addColumn('title', 'text')
     .addColumn('fileName', 'text', (col) => col.notNull())
     .addColumn('fileSize', 'text', (col) => col.notNull())
+    .addColumn('mimeType', 'text', (col) => col.notNull())
     .addColumn('bucket', 'text', (col) =>
       col.notNull().defaultTo('image-uploader'),
     )
