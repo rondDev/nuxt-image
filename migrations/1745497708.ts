@@ -47,8 +47,8 @@ export async function up(db: Kysely<any>): Promise<void> {
     .addColumn('id', 'text', (col) => col.primaryKey().unique())
     .addColumn('title', 'text')
     .addColumn('description', 'text')
-    .addColumn('fileName', 'text', (col) => col.notNull())
-    .addColumn('mimeType', 'text', (col) => col.notNull())
+    .addColumn('bucket', 'text', (col) => col.notNull().defaultTo("image-uploader"))
+    .addColumn('key', 'text', (col) => col.notNull())
     // Use createdAt as "upload time"
     .addColumn('createdAt', 'timestamptz', (col) => col.defaultTo(sql`now()`))
     .addColumn('updatedAt', 'timestamptz', (col) => col.defaultTo(sql`now()`))
