@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import en from 'javascript-time-ago/locale/en';
 import TimeAgo from 'javascript-time-ago';
+import adze from 'adze';
 
 type fileType = {
 	fileName: string;
@@ -11,6 +12,15 @@ const { files } = await $fetch('/api/files');
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
+
+function calculate(file: fileType) {
+	try {
+		return timeAgo.format(Date.parse(file.updatedAt), 'round');
+	} catch (e) {
+		adze.error('[files.vue | calculate]', e, file);
+		return '';
+	}
+}
 
 const { copy } = useClipboard();
 </script>
@@ -23,7 +33,7 @@ const { copy } = useClipboard();
         <div class="h-[5rem] flex flex-col gap-2">
           <p class="text-md font-bold">{{ file.fileName }}</p>
           <div class="flex gap-4">
-            <p class="text-sm">Uploaded {{ timeAgo.format(Date.parse(file.updatedAt), 'round') }}</p>
+            <p class="text-sm">Uploaded {{ calculate(file) }}</p>
             <p class="text-sm">{{ file.fileSize }}</p>
           </div>
         </div>
