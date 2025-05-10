@@ -23,18 +23,19 @@ export default defineEventHandler(async (event) => {
 			.offset(0)
 			.execute();
 
-    if (!fileData) {
-      return {
-        error: 'File not found',
-      };
-    }
+		if (!fileData) {
+			return {
+				error: 'File not found',
+			};
+		}
 
-    const files = [];
+		const files = [];
 
-    for (const f of fileData) {
-      files.push(f);
-    }
     return files;
+		for (const f of fileData) {
+			files.push(f);
+		}
+		};
 	} catch (e) {
 		adze.error('[api/files | catch]', e);
 		return {
