@@ -1,3 +1,4 @@
+import adze from 'adze';
 import { db } from '../utils/db';
 
 export default defineEventHandler(async (event) => {
@@ -23,10 +24,11 @@ export default defineEventHandler(async (event) => {
       files.push(f);
     }
     return files;
-  } catch (e) {
-    console.log(e);
-    return {
-      error: e,
-    };
-  }
+	} catch (e) {
+		adze.error('[api/files | catch]', e);
+		return {
+			files: {},
+			error: e,
+		};
+	}
 });
