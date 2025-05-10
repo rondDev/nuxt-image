@@ -2,15 +2,26 @@ import adze from 'adze';
 import { db } from '../utils/db';
 
 export default defineEventHandler(async (event) => {
-  try {
-    const fileData = await db
-      .selectFrom('files')
-      .where('userId', '=', 'byyrkjgid8sj64uiht50o75d')
-      .selectAll()
-      .orderBy('updatedAt', 'desc')
-      .limit(10)
-      .offset(0)
-      .execute();
+	try {
+		const cookie = getCookie(event, 'session');
+		const user = await db
+			.selectFrom('sessions')
+			.where('sessionToken', '=', cookie)
+			.select(['userId'])
+			.executeTakeFirst();
+		if (!user) {
+			return {
+				error: 'User not found',
+			};
+		}
+		const fileData = await db
+			.selectFrom('files')
+			.where('userId', '=', user.userId)
+			.selectAll()
+			.orderBy('updatedAt', 'desc')
+			.limit(10)
+			.offset(0)
+			.execute();
 
     if (!fileData) {
       return {
