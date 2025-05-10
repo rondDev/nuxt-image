@@ -1,7 +1,4 @@
-import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { db } from '../utils/db';
-import { s3Client } from '../utils/s3';
-import { useAsyncData, useFetch } from 'nuxt/app';
 
 export default defineEventHandler(async (event) => {
   try {
