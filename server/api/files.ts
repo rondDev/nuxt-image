@@ -31,10 +31,11 @@ export default defineEventHandler(async (event) => {
 
 		const files = [];
 
-    return files;
 		for (const f of fileData) {
 			files.push(f);
 		}
+		return {
+			files: files,
 		};
 	} catch (e) {
 		adze.error('[api/files | catch]', e);
