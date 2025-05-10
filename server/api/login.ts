@@ -1,4 +1,4 @@
-import { db } from '../utils/db.ts';
+import { db } from '../utils/db';
 import * as argon2 from 'argon2';
 
 export default defineEventHandler(async (event) => {
