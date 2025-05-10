@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import en from 'javascript-time-ago/locale/en';
 import TimeAgo from 'javascript-time-ago';
-import type { AsyncData } from '#app';
-import type { FetchError } from 'ofetch';
 
 type fileType = {
 	fileName: string;
 	fileSize: string;
 	updatedAt: string;
 };
-const {
-	data: { value: files },
-} = (await useFetch('/api/files')) as AsyncData<fileType[], FetchError>;
+const { files } = await $fetch('/api/files');
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
