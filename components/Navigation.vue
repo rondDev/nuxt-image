@@ -15,11 +15,15 @@ const active = router.currentRoute.value.name;
       <Icon name="tabler:stack" size="32px" class="color-[#575757] menuBarButton"
         :class="{ active: active === 'files' }" mode="svg" />
     </NuxtLink>
-    <Icon name="tabler:bell" size="32px" class="color-[#575757] menuBarButton"
-      :class="{ active: active === 'notifications' }" mode="svg" />
+    <NuxtLink href="/config">
+      <Icon name="tabler:settings" size="32px" class="color-[#575757] menuBarButton"
+        :class="{ active: active === 'config' }" mode="svg" />
+    </NuxtLink>
     <div class="self-center w-1px h-16px bg-[#3f3f3f]" />
-    <Icon name="material-symbols:account-circle" size="32px" class="color-[#575757] menuBarButton"
-      :class="{ active: active === 'notifications' }" mode="svg" />
+    <NuxtLink href="/account">
+      <Icon name="material-symbols:account-circle" size="32px" class="color-[#575757] menuBarButton"
+        :class="{ active: active === 'account' }" mode="svg" />
+    </NuxtLink>
   </div>
 </template>
 
