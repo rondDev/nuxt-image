@@ -1,5 +1,7 @@
 import adze from 'adze';
 import { db } from '../utils/db';
+import { s3Client } from '../utils/s3';
+import { GetObjectCommand } from '@aws-sdk/client-s3';
 
 export default defineEventHandler(async (event) => {
 	try {
@@ -32,7 +34,30 @@ export default defineEventHandler(async (event) => {
 		const files = [];
 
 		for (const f of fileData) {
-			files.push(f);
+			const fileData = await db
+				.selectFrom('files')
+				.where('fileName', '=', f.fileName)
+				.selectAll()
+				.executeTakeFirst();
+
+			if (!fileData) {
+				return {
+					error: 'File not found',
+				};
+			}
+
+			const file = await s3Client.send(
+				new GetObjectCommand({
+					Bucket: fileData.bucket,
+					Key: fileData.key,
+				}),
+			);
+			files.push({
+				fileName: f.fileName,
+				size: bytesToSize(file.ContentLength || 0),
+				contentType: file.ContentType,
+				updatedAt: f.updatedAt,
+			});
 		}
 		return {
 			files: files,
