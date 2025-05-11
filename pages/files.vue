@@ -28,28 +28,23 @@ const { copy } = useClipboard();
   <NuxtLayout>
     <Navigation />
     <div
-      class="h-full max-w-full rounded-lg mt-32 mb-32 ml-36 mr-36 grid grid-cols-3 gap-8 bg-gradient-to-br from-[#04102D] to-[#020817] text-white">
-      <div v-for="file of files" class="bg-[#020817] p-5 h-[25rem] w-[30rem]">
+      class="h-full max-w-full rounded-lg m-12 xl:m-18 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 bg-gradient-to-br from-[#04102D] to-[#020817] text-white justify-items-center">
+      <div v-for="file of files" class="border border-[#27272a] p-5 w-[90%] sm:w-[42vw] md:w-[28vw] rounded-xl">
         <div class="h-[5rem] flex flex-col gap-2">
           <p class="text-md font-bold">{{ file.fileName }}</p>
-          <div class="flex gap-4">
-            <p class="text-sm">Uploaded {{ calculate(file) }}</p>
-            <p class="text-sm">{{ file.size }}</p>
+          <div class="flex justify-between">
+            <p class="text-xs lg:text-sm">Uploaded {{ calculate(file) }}</p>
+            <p class="text-xs lg:text-sm">{{ file.size }}</p>
           </div>
         </div>
-        <div class="flex justify-center h-[13rem]">
+        <div class="flex justify-center lg:h-[10rem] xl:h-[13rem]">
           <img class="flex object-contain h-full" :src='`http://localhost:3000/api/file/${file.fileName}`' />
         </div>
-        <div class="flex h-[5rem] items-center justify-between">
-          <!-- TODO: fix clipboard to actually copy link -->
-          <button @click="copy('hi')" class="p-2 w-[10rem] h-[2rem] rounded-full self-center bg-slate-800
-                text-blue-400 text-sm flex justify-center items-center cursor-pointer">
-            Copy link
-          </button>
+        <div class="flex my-2 lg:h-[4rem] items-center justify-between">
           <input type="hidden" name="file" value={file.fileFullName} />
           <!-- TODO: implement functionality for delete -->
           <button
-            class="p-2 w-[10rem] h-[2rem] rounded-full self-center bg-slate-800 text-red-500 text-sm flex justify-center items-center cursor-pointer">
+            class="p-2 xl:w-[6rem] h-[2rem] rounded-lg self-center border border-red-500 text-red-500 text-xs lg:text-sm flex justify-center items-center cursor-pointer">
             Delete
           </button>
         </div>
