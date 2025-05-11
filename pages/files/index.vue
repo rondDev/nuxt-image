@@ -8,7 +8,7 @@ type fileType = {
   size: string;
   updatedAt: string;
 };
-const { files } = await $fetch('/api/files');
+const { files } = await $fetch('/api/files/0');
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');

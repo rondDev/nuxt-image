@@ -1,10 +1,12 @@
 import adze from 'adze';
-import { db } from '../utils/db';
-import { s3Client } from '../utils/s3';
+import { db } from '../../utils/db';
+import { s3Client } from '../../utils/s3';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 
 export default defineEventHandler(async (event) => {
 	try {
+		const offsetParam = getRouterParam(event, 'offset');
+		const offset = Number.parseInt(offsetParam || '0');
 		const cookie = getCookie(event, 'session');
 		const user = await db
 			.selectFrom('sessions')
@@ -22,7 +24,7 @@ export default defineEventHandler(async (event) => {
 			.selectAll()
 			.orderBy('updatedAt', 'desc')
 			.limit(10)
-			.offset(0)
+			.offset(offset * 10)
 			.execute();
 
 		if (!fileData) {
