@@ -4,9 +4,9 @@ import TimeAgo from 'javascript-time-ago';
 import adze from 'adze';
 
 type fileType = {
-	fileName: string;
-	fileSize: string;
-	updatedAt: string;
+  fileName: string;
+  size: string;
+  updatedAt: string;
 };
 const { files } = await $fetch('/api/files');
 
@@ -14,12 +14,12 @@ TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
 
 function calculate(file: fileType) {
-	try {
-		return timeAgo.format(Date.parse(file.updatedAt), 'round');
-	} catch (e) {
-		adze.error('[files.vue | calculate]', e, file);
-		return '';
-	}
+  try {
+    return timeAgo.format(Date.parse(file.updatedAt), 'round');
+  } catch (e) {
+    adze.error('[files.vue | calculate]', e, file);
+    return '';
+  }
 }
 
 const { copy } = useClipboard();
@@ -34,7 +34,7 @@ const { copy } = useClipboard();
           <p class="text-md font-bold">{{ file.fileName }}</p>
           <div class="flex gap-4">
             <p class="text-sm">Uploaded {{ calculate(file) }}</p>
-            <p class="text-sm">{{ file.fileSize }}</p>
+            <p class="text-sm">{{ file.size }}</p>
           </div>
         </div>
         <div class="flex justify-center h-[13rem]">
@@ -47,6 +47,7 @@ const { copy } = useClipboard();
             Copy link
           </button>
           <input type="hidden" name="file" value={file.fileFullName} />
+          <!-- TODO: implement functionality for delete -->
           <button
             class="p-2 w-[10rem] h-[2rem] rounded-full self-center bg-slate-800 text-red-500 text-sm flex justify-center items-center cursor-pointer">
             Delete
