@@ -47,6 +47,10 @@ const { copy } = useClipboard();
             class="p-2 xl:w-[6rem] h-[2rem] rounded-lg self-center border border-red-500 text-red-500 text-xs lg:text-sm flex justify-center items-center cursor-pointer">
             Delete
           </button>
+          <button @click="copy(`http://localhost:3000/${file.fileName}`)" class="p-2 xl:w-[6rem] h-[2rem] rounded-lg self-center border border-blue-400
+                text-blue-400 text-xs lg:text-sm flex justify-center items-center cursor-pointer">
+            Copy link
+          </button>
         </div>
       </div>
     </div>
