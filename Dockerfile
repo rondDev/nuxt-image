@@ -2,6 +2,7 @@
 # see all versions at https://hub.docker.com/r/oven/bun/tags
 FROM oven/bun:1 AS base
 WORKDIR /usr/src/app
+RUN apt update && apt install python3 python3-pip make g++ -y
 
 # install dependencies into temp directory
 # this will cache them and speed up future builds
