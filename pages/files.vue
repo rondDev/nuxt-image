@@ -8,7 +8,8 @@ type fileType = {
   size: string;
   updatedAt: string;
 };
-const { files } = await $fetch('/api/files/0');
+const route = useRoute();
+const { files } = await $fetch(`/api/files/${route.query.offset}`);
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');

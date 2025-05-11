@@ -6,7 +6,18 @@ import { GetObjectCommand } from '@aws-sdk/client-s3';
 export default defineEventHandler(async (event) => {
 	try {
 		const offsetParam = getRouterParam(event, 'offset');
-		const offset = Number.parseInt(offsetParam || '0');
+		const offset = (() => {
+			if (offsetParam && offsetParam.length < 1) {
+				return 0;
+			}
+			try {
+				const n = Number.parseInt(offsetParam || '0');
+				return n;
+			} catch (e) {
+				adze.error('[api/files | offset]', e);
+				return 0;
+			}
+		})();
 		const cookie = getCookie(event, 'session');
 		const user = await db
 			.selectFrom('sessions')
@@ -24,7 +35,7 @@ export default defineEventHandler(async (event) => {
 			.selectAll()
 			.orderBy('updatedAt', 'desc')
 			.limit(10)
-			.offset(offset * 10)
+			.offset(offset * 10 || 0)
 			.execute();
 
 		if (!fileData) {
