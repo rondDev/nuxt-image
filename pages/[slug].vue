@@ -9,6 +9,8 @@ const { fileName, size, contentType, uploadedAt, uploader } = await $fetch(
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
 
+const config = useRuntimeConfig();
+
 function calculate(uploadTime: string) {
 	try {
 		return timeAgo.format(Date.parse(uploadTime), 'round');
@@ -20,10 +22,10 @@ function calculate(uploadTime: string) {
     <div class="h-screen w-screen overflow-y-scroll pb-8">
       <div class="flex items-center justify-center">
         <div class="m-20">
-          <img v-if="contentType.includes('image')" draggable="false"
-            :src='`http://localhost:3000/api/file/${fileName}`' :alt='fileName' />
+          <img v-if="contentType.includes('image')" draggable="false" :src='`${config.domain}/api/file/${fileName}`'
+            :alt='fileName' />
           <video v-if="contentType.includes('video')" autoplay loop muted controls
-            :src='`http://localhost:3000/api/file/${fileName}`' />
+            :src='`${config.domain}/api/file/${fileName}`' />
         </div>
       </div>
       <div class="flex flex-col items-center justify-center gap-6 mb-8 pb-8">
