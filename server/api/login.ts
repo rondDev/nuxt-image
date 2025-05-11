@@ -4,6 +4,7 @@ import * as argon2 from 'argon2';
 import { encodeBase32LowerCaseNoPadding } from '@oslojs/encoding';
 import { encodeHex } from 'oslo/encoding';
 import { sha256 } from 'oslo/crypto';
+import adze from 'adze';
 
 export default defineEventHandler(async (event) => {
 	try {
@@ -15,7 +16,7 @@ export default defineEventHandler(async (event) => {
 			.where('username', '=', body.username)
 			.executeTakeFirst();
 		if (!user) {
-			console.log('user  doesnt exist');
+			adze.error('[api/login] User  doesnt exist');
 			return { error: 'User does not exist' };
 		}
 		const match = await argon2.verify(user.password, body.password);
@@ -32,7 +33,7 @@ export default defineEventHandler(async (event) => {
 		}
 		return { error: 'Data entered did not match any records' };
 	} catch (e) {
-		console.error(e);
+		adze.error('[api/login | catch]', e);
 		return {
 			error: e,
 		};
@@ -72,7 +73,7 @@ export async function createSession(
 			.execute();
 		return session;
 	} catch (e) {
-		console.log(e);
+		adze.error('[api/login | createSession]', e);
 		return { id: '', sessionToken: '', userId: '', expiresAt: new Date() };
 	}
 }

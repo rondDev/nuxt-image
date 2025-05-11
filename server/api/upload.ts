@@ -5,6 +5,7 @@ import { ContentFileType } from '@nuxt/content';
 import { db } from '../utils/db';
 import { createId } from '../utils/cuid';
 import mime from 'mime-types';
+import adze from 'adze';
 
 export default defineEventHandler(async (event) => {
 	try {
@@ -30,7 +31,6 @@ export default defineEventHandler(async (event) => {
 					type: item.type,
 					data: item.data,
 				};
-				console.log(item);
 			} else if (item.name === 'key') {
 				uploadKey = item.data.toString();
 			} else if (item.name === 'randomize_filename') {
@@ -57,15 +57,11 @@ export default defineEventHandler(async (event) => {
 			.executeTakeFirst();
 
 		if (!user) {
-			console.log('Upload key invalid');
+			adze.error('[api/upload] Upload key invalid');
 			return {
 				error: 'Upload key invalid',
 			};
 		}
-
-		// console.log("file", fileObject)
-		// console.log("uploadKey", uploadKey?.data.toString())
-		// console.log("randomizeFilename", randomizeFilename)
 
 		const fileNameRand = cryptoRandomString({
 			length: 12,
@@ -99,7 +95,7 @@ export default defineEventHandler(async (event) => {
 			url: `https://i.rond.cc/${fileNameRand}`,
 		};
 	} catch (e) {
-		console.error(e);
+		adze.error('[api/upload | catch]', e);
 		return {
 			error: e,
 		};
