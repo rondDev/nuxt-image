@@ -14,7 +14,6 @@ function calculate(uploadTime: string) {
 		return timeAgo.format(Date.parse(uploadTime), 'round');
 	} catch (e) {}
 }
-console.log(contentType.includes('image'));
 </script>
 <template>
   <NuxtLayout>
@@ -41,7 +40,7 @@ console.log(contentType.includes('image'));
                   Download
                 </a>
               </div>
-              <Seperator direction="vertical" />
+              <div class="shrink-0 bg-[#1E293B] h-[1px] w-full md:h-full md:w-[1px]"></div>
               <div class="grid grid-cols-2 grid-rows-2 ml-auto mt-auto grow gap-6 m-9 h-full w-full">
                 <div class="flex flex-col justify-evenly items-center">
                   <Icon name="lucide:webhook" size="1.4em" mode="svg" />
