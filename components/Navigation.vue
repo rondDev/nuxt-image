@@ -5,7 +5,7 @@ const active = router.currentRoute.value.name;
 </script>
 <template>
   <div
-    class="fixed bottom-10px w-fit flex gap-10px bg-[#252525] py-[16px] px-[24px] rounded-12px left-[50%] transform-translate-x-[-50%] user-drag-none"
+    class="fixed bottom-10px w-fit flex gap-10px bg-[#09090b] border border-[#252525] py-[16px] px-[24px] rounded-12px left-[50%] transform-translate-x-[-50%] user-drag-none"
     ondragstart="return false">
     <NuxtLink href="/">
       <Icon name="gravity-ui:house" size="32px" class="color-[#575757] menuBarButton"
