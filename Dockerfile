@@ -4,23 +4,23 @@ FROM oven/bun:1 AS base
 WORKDIR /app
 
 # Install packages needed to build node modules
-RUN apt-get update -qq && \
-    apt-get install -y build-essential pkg-config python-is-python3
-
-ENV NODE_ENV="production"
 
 # install dependencies into temp directory
 # this will cache them and speed up future builds
 FROM base AS build
-COPY --link package.json bun.lock ./
-RUN bun install --frozen-lockfile --ci --production
 
+RUN apt-get update -qq && \
+    apt-get install -y build-essential pkg-config python-is-python3
+
+ENV NODE_ENV="production"
+COPY --link package.json bun.lock ./
+RUN bun install --production
+RUN bun run build --dotenv
 COPY --link . .
 
-RUN bun run build --dotenv
 
 # copy production dependencies and source code into final image
-FROM base AS release
+FROM base
 COPY --from=build /app /app
 
 # run the app
