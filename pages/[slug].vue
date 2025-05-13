@@ -3,7 +3,7 @@ import en from 'javascript-time-ago/locale/en';
 import TimeAgo from 'javascript-time-ago';
 const route = useRoute();
 const { fileName, size, contentType, uploadedAt, uploader } = await $fetch(
-	`/api/file-metadata/${route.params.slug}`,
+  `/api/file-metadata/${route.params.slug}`,
 );
 
 TimeAgo.addLocale(en);
@@ -12,9 +12,9 @@ const timeAgo = new TimeAgo('en-US');
 const config = useRuntimeConfig();
 
 function calculate(uploadTime: string) {
-	try {
-		return timeAgo.format(Date.parse(uploadTime), 'round');
-	} catch (e) {}
+  try {
+    return timeAgo.format(Date.parse(uploadTime), 'round');
+  } catch (e) { }
 }
 </script>
 <template>
@@ -33,33 +33,33 @@ function calculate(uploadTime: string) {
           class="rounded-lg border border-[#1E293B] shadow-sm flex justify-center items-center m-8 md:m-0 md:ml-0 md:mr-0 p-8 md:p-0 md:w-[800px] md:h-52 h-fit">
           <div class="text-center grow h-full p-0">
             <div
-              class="flex flex-col md:flex-row justify-center items-center md:h-full h-min pt-6 pb-6 gap-10 md:gap-0">
-              <div class="flex flex-col justify-evenly items-center mr-auto grow m-13 h-full w-full">
-                <p class="text-lg md:text-2xl">{{ fileName }}</p>
+              class="flex flex-col lt-md:flex-row justify-center items-center md:h-full h-min pt-6 pb-6 gap-10 md:gap-0">
+              <div class="flex flex-col justify-evenly items-center mr-auto grow lg:m-13 gap-2 h-full w-full">
+                <p class="text-lg md:text-2xl lt-md:text-xs">{{ fileName }}</p>
                 <a :href='`/api/file/${fileName}`'
-                  class="w-2/3 flex justify-evenly items-center border py-2 border-blue-600 rounded-md">
+                  class="w-2/3 flex justify-evenly items-center border py-2 border-blue-600 rounded-md lt-md:text-xs">
                   <Icon name="material-symbols:download" size="1em" mode="svg" />
                   Download
                 </a>
               </div>
               <div class="shrink-0 bg-[#1E293B] h-[1px] w-full md:h-full md:w-[1px]"></div>
               <div class="grid grid-cols-2 grid-rows-2 ml-auto mt-auto grow gap-6 m-9 h-full w-full">
-                <div class="flex flex-col justify-evenly items-center">
+                <div class="flex flex-col justify-evenly text-md lt-md:text-xs items-center">
                   <Icon name="lucide:webhook" size="1.4em" mode="svg" />
                   <p class="text-[10px]">SIZE</p>
                   <p>{{ size }}</p>
                 </div>
-                <div class="flex flex-col justify-evenly items-center">
+                <div class="flex flex-col justify-evenly text-md lt-md:text-xs items-center">
                   <Icon name="lucide:clock-1" size="1.4em" mode="svg" />
                   <p class="text-[10px]">UPLOAD TIME</p>
                   <p>{{ calculate(uploadedAt) }}</p>
                 </div>
-                <div class="flex flex-col justify-evenly items-center">
+                <div class="flex flex-col justify-evenly text-md lt-md:text-xs items-center">
                   <Icon name="lucide:file-digit" size="1.4em" mode="svg" />
                   <p class="text-[10px]">MIMETYPE</p>
                   <p>{{ contentType }}</p>
                 </div>
-                <div class="flex flex-col justify-evenly items-center">
+                <div class="flex flex-col justify-evenly text-md lt-md:text-xs items-center">
                   <Icon name="lucide:contact" size="1.4em" mode="svg" />
                   <p class="text-[10px]">UPLOADED BY</p>
                   <p>{{ uploader }}</p>
