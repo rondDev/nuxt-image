@@ -4,23 +4,24 @@ import TimeAgo from 'javascript-time-ago';
 import adze from 'adze';
 
 type fileType = {
-	fileName: string;
-	size: string;
-	updatedAt: string;
+  fileName: string;
+  size: string;
+  updatedAt: string;
 };
 const route = useRoute();
-const { files } = await $fetch(`/api/files/${route.query.offset}`);
+const offset = ref(route.query.offset ? route.query.offset : 0);
+const { files } = await $fetch(`/api/files/${offset}`);
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
 
 function calculate(file: fileType) {
-	try {
-		return timeAgo.format(Date.parse(file.updatedAt), 'round');
-	} catch (e) {
-		adze.error('[files.vue | calculate]', e, file);
-		return '';
-	}
+  try {
+    return timeAgo.format(Date.parse(file.updatedAt), 'round');
+  } catch (e) {
+    adze.error('[files.vue | calculate]', e, file);
+    return '';
+  }
 }
 
 const config = useRuntimeConfig();
