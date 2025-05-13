@@ -14,7 +14,7 @@ RUN apt-get update -qq && \
 
 ENV NODE_ENV="production"
 COPY --link package.json bun.lock ./
-RUN bun install --production
+RUN bun install
 RUN bun run build --dotenv
 COPY --link . .
 
