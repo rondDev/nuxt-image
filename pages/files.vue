@@ -9,8 +9,12 @@ type fileType = {
 	updatedAt: string;
 };
 const route = useRoute();
-const offset = ref(route.query.offset ? route.query.offset : 0);
-const { files } = await $fetch(`/api/files/${offset}`);
+const offset = ref(
+	route.query.offset && typeof route.query.offset === 'number'
+		? route.query.offset
+		: 0,
+);
+const { files } = await $fetch(`/api/files/${offset.value}`);
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
@@ -59,4 +63,7 @@ const { copy } = useClipboard();
       </div>
     </div>
   </NuxtLayout>
+</template>
+</div>
+</NuxtLayout>
 </template>
