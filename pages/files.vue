@@ -4,9 +4,9 @@ import TimeAgo from 'javascript-time-ago';
 import adze from 'adze';
 
 type fileType = {
-  fileName: string;
-  size: string;
-  updatedAt: string;
+	fileName: string;
+	size: string;
+	updatedAt: string;
 };
 const route = useRoute();
 const offset = ref(route.query.offset ? route.query.offset : 0);
@@ -16,12 +16,12 @@ TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
 
 function calculate(file: fileType) {
-  try {
-    return timeAgo.format(Date.parse(file.updatedAt), 'round');
-  } catch (e) {
-    adze.error('[files.vue | calculate]', e, file);
-    return '';
-  }
+	try {
+		return timeAgo.format(Date.parse(file.updatedAt), 'round');
+	} catch (e) {
+		adze.error('[files.vue | calculate]', e, file);
+		return '';
+	}
 }
 
 const config = useRuntimeConfig();
@@ -42,7 +42,7 @@ const { copy } = useClipboard();
           </div>
         </div>
         <div class="flex justify-center lg:h-[10rem] xl:h-[13rem]">
-          <img class="flex object-contain h-full" :src='`${config.domain}/api/file/${file.fileName}`' />
+          <img class="flex object-contain h-full" :src='`${config.public.domain}/api/file/${file.fileName}`' />
         </div>
         <div class="flex my-2 lg:h-[4rem] items-center justify-between">
           <input type="hidden" name="file" value={file.fileFullName} />
@@ -51,7 +51,7 @@ const { copy } = useClipboard();
             class="p-2 xl:w-[6rem] h-[2rem] rounded-lg self-center border border-red-500 text-red-500 text-xs lg:text-sm flex justify-center items-center cursor-pointer">
             Delete
           </button>
-          <button @click="copy(`${config.domain}/${file.fileName}`)" class="p-2 xl:w-[6rem] h-[2rem] rounded-lg self-center border border-blue-400
+          <button @click="copy(`${config.public.domain}/${file.fileName}`)" class="p-2 xl:w-[6rem] h-[2rem] rounded-lg self-center border border-blue-400
                 text-blue-400 text-xs lg:text-sm flex justify-center items-center cursor-pointer">
             Copy link
           </button>
