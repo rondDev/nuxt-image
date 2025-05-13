@@ -64,6 +64,3 @@ const { copy } = useClipboard();
     </div>
   </NuxtLayout>
 </template>
-</div>
-</NuxtLayout>
-</template>
