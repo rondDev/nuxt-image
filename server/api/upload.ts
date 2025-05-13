@@ -73,7 +73,7 @@ export default defineEventHandler(async (event) => {
 
     const file = await s3Client.send(
       new PutObjectCommand({
-        Bucket: process.env.S3_REGION || 'image',
+        Bucket: process.env.S3_BUCKET || 'image',
         Key: fileKey,
         ContentType: fileObject.type,
         Body: fileObject.data,
@@ -86,7 +86,7 @@ export default defineEventHandler(async (event) => {
         fileName: fileNameRand,
         fileSize: bytesToSize(Buffer.byteLength(fileObject.data)),
         mimeType: mime.lookup(fileObject.filename || ''),
-        bucket: process.env.S3_REGION || 'image',
+        bucket: process.env.S3_BUCKET || 'image',
         key: fileKey,
         userId: user.id,
       })
