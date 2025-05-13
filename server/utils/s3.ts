@@ -1,13 +1,13 @@
-import { S3Client } from '@aws-sdk/client-s3'
+import { S3Client } from '@aws-sdk/client-s3';
 
 export const s3Client = new S3Client({
-  endpoint: process.env.MINIO_ENDPOINT || '',
-  // port: Number.parseInt(process.env.MINIO_PORT || "9000"),
-  // useSSL: process.env.MINIO_SSL == 'true',
+  endpoint: process.env.S3_ENDPOINT || '',
+  // port: Number.parseInt(process.env.S3_PORT || "9000"),
+  // useSSL: process.env.S3_SSL == 'true',
   credentials: {
-    accessKeyId: process.env.MINIO_ACCESS_KEY || '',
-    secretAccessKey: process.env.MINIO_SECRET_KEY || '',
+    accessKeyId: process.env.S3_ACCESS_KEY || '',
+    secretAccessKey: process.env.S3_SECRET_KEY || '',
   },
-  region: 'us-east-1',
-  forcePathStyle: true
-})
+  region: process.env.S3_REGION || 'us-east-1',
+  forcePathStyle: true,
+});
