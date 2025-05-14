@@ -92,7 +92,7 @@ export default defineEventHandler(async (event) => {
       })
       .execute();
     return {
-      url: `https://${process.env.DOMAIN}/${fileNameRand}`,
+      url: `${process.env.DOMAIN}/${fileNameRand}`,
     };
   } catch (e) {
     adze.error('[api/upload | catch]', e);
