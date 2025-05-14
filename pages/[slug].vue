@@ -16,6 +16,8 @@ function calculate(uploadTime: string) {
 		return timeAgo.format(Date.parse(uploadTime), 'round');
 	} catch (e) {}
 }
+const isImage = ref(contentType.includes('image') || false);
+const isVideo = ref(contentType.includes('video') || false);
 useSeoMeta({
 	title: `${config.public.domain.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '').split('.')[0]} - screenshot uploader`,
 	ogImage: `${config.public.domain}/api/file/${fileName}`,
@@ -27,10 +29,8 @@ useSeoMeta({
     <div class="h-screen w-screen overflow-y-scroll pb-8">
       <div class="flex items-center justify-center">
         <div class="m-20">
-          <img v-if="contentType.includes('image')" draggable="false"
-            :src='`${config.public.domain}/api/file/${fileName}`' :alt='fileName' />
-          <video v-if="contentType.includes('video')" autoplay loop muted controls
-            :src='`${config.public.domain}/api/file/${fileName}`' />
+          <img v-if="isImage" draggable="false" :src='`${config.public.domain}/api/file/${fileName}`' :alt='fileName' />
+          <video v-if="isVideo" autoplay loop muted controls :src='`${config.public.domain}/api/file/${fileName}`' />
         </div>
       </div>
       <div class="flex flex-col items-center justify-center gap-6 mb-8 pb-8">
