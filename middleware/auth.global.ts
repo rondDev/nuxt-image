@@ -11,7 +11,7 @@ export default async function defineNuxtRouteMiddleware() {
     }
 
     const res = await $fetch('/api/verify-session');
-    if (res.valid) {
+    if (res?.valid) {
       const u = res.user;
       user.$patch({
         id: u.id,
