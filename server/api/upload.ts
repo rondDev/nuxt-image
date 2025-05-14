@@ -92,7 +92,7 @@ export default defineEventHandler(async (event) => {
       })
       .execute();
     return {
-      url: `https://i.rond.cc/${fileNameRand}`,
+      url: `https://${process.env.DOMAIN}/${fileNameRand}`,
     };
   } catch (e) {
     adze.error('[api/upload | catch]', e);
