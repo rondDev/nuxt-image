@@ -16,8 +16,12 @@ function calculate(uploadTime: string) {
 		return timeAgo.format(Date.parse(uploadTime), 'round');
 	} catch (e) {}
 }
-const isImage = ref(contentType.includes('image') || false);
-const isVideo = ref(contentType.includes('video') || false);
+let isImage = ref(contentType.includes('image') || false);
+let isVideo = ref(contentType.includes('video') || false);
+onMounted(() => {
+	isImage = contentType.includes('image');
+	isVideo = contentType.includes('video');
+});
 useSeoMeta({
 	title: `${config.public.domain.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '').split('.')[0]} - screenshot uploader`,
 	ogImage: `${config.public.domain}/api/file/${fileName}`,

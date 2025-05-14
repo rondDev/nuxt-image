@@ -10,15 +10,18 @@ const url = useRequestURL();
 const showRaw = ref(false);
 // TODO: Add randomize toggle
 const randomizeFileNames = ref(false);
-const host = ref(url.origin);
+let host = ref('');
+onMounted(() => {
+	host = url.origin;
+});
 const config = reactive({
 	Version: '15.0.0',
 	DestinationType:
 		'ImageUploader, TextUploader, FileUploader, URLShortener, URLSharingService',
 	RequestMethod: 'POST',
-	RequestURL: `${url.origin}/api/upload`,
+	RequestURL: `${host}/api/upload`,
 	Headers: {
-		origin: `${url.origin}`,
+		origin: `${host}`,
 	},
 	Body: 'MultipartFormData',
 	Arguments: {
