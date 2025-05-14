@@ -16,6 +16,14 @@ function calculate(uploadTime: string) {
 		return timeAgo.format(Date.parse(uploadTime), 'round');
 	} catch (e) {}
 }
+useHead({
+	title: 'i.rond.cc - screenshot uploader',
+});
+useSeoMeta({
+	title: `${config.public.DOMAIN} - screenshot uploader`,
+	ogImage: `${config.public.DOMAIN}/api/file/${fileName}`,
+	twitterCard: 'summary_large_image',
+});
 </script>
 <template>
   <NuxtLayout>
