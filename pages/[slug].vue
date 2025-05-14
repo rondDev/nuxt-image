@@ -20,8 +20,8 @@ useHead({
 	title: 'i.rond.cc - screenshot uploader',
 });
 useSeoMeta({
-	title: `${config.public.DOMAIN} - screenshot uploader`,
-	ogImage: `${config.public.DOMAIN}/api/file/${fileName}`,
+	title: `${config.public.domain} - screenshot uploader`,
+	ogImage: `${config.public.domain}/api/file/${fileName}`,
 	twitterCard: 'summary_large_image',
 });
 </script>
