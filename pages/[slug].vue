@@ -16,11 +16,13 @@ function calculate(uploadTime: string) {
 		return timeAgo.format(Date.parse(uploadTime), 'round');
 	} catch (e) {}
 }
-let isImage = ref(contentType.includes('image') || false);
-let isVideo = ref(contentType.includes('video') || false);
+let isImage = ref(false);
+let isVideo = ref(false);
+let uploadedRelative = '';
 onMounted(() => {
 	isImage = contentType.includes('image');
 	isVideo = contentType.includes('video');
+	uploadedRelative = calculate(uploadetAt);
 });
 useSeoMeta({
 	title: `${config.public.domain.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '').split('.')[0]} - screenshot uploader`,
@@ -61,7 +63,7 @@ useSeoMeta({
                 <div class="flex flex-col justify-evenly text-md lt-md:text-xs items-center">
                   <Icon name="lucide:clock-1" size="1.4em" mode="svg" />
                   <p class="text-[10px]">UPLOAD TIME</p>
-                  <p>{{ calculate(uploadedAt) }}</p>
+                  <p>{{ uploadedRelative }}</p>
                 </div>
                 <div class="flex flex-col justify-evenly text-md lt-md:text-xs items-center">
                   <Icon name="lucide:file-digit" size="1.4em" mode="svg" />
