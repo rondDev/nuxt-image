@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
     if (!c) {
       return {
         user: undefined,
+        valid: false,
       };
     }
     const s = await db
