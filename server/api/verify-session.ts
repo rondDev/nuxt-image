@@ -4,7 +4,9 @@ export default defineEventHandler(async (event) => {
   try {
     const c = getCookie(event, 'session');
     if (!c) {
-      return;
+      return {
+        user: undefined,
+      };
     }
     const s = await db
       .selectFrom('sessions')
