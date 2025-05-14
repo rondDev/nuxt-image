@@ -83,7 +83,7 @@ export default defineEventHandler(async (event) => {
       .insertInto('files')
       .values({
         id: createId(),
-        fileName: fileNameRand,
+        fileName: fileName,
         fileSize: bytesToSize(Buffer.byteLength(fileObject.data)),
         mimeType: mime.lookup(fileObject.filename || ''),
         bucket: process.env.S3_BUCKET || 'image',
