@@ -1,7 +1,13 @@
 <script setup lang="ts">
 const user = useUserStore();
 const u = storeToRefs(user);
-const loggedIn = ref(u.id.value !== undefined);
+const loggedIn = ref(false);
+
+onMounted(() => {
+  if(u.id.value !== undefined) {
+    loggedIn = true;
+  }
+})
 
 const { userTotal, total, userSize, totalSize, userCount, error } =
   await $fetch('/api/dashboard-data');
