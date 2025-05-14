@@ -5,18 +5,20 @@ const userStore = useUserStore();
 const user = storeToRefs(userStore);
 const router = useRouter();
 
+const url = useRequestURL();
+
 const showRaw = ref(false);
 // TODO: Add randomize toggle
 const randomizeFileNames = ref(false);
-const host = ref(location.host);
+const host = ref(url.origin);
 const config = reactive({
 	Version: '15.0.0',
 	DestinationType:
 		'ImageUploader, TextUploader, FileUploader, URLShortener, URLSharingService',
 	RequestMethod: 'POST',
-	RequestURL: `https://${host.value}/api/upload`,
+	RequestURL: `${url.origin}/api/upload`,
 	Headers: {
-		origin: `https://${host.value}`,
+		origin: `${url.origin}`,
 	},
 	Body: 'MultipartFormData',
 	Arguments: {
