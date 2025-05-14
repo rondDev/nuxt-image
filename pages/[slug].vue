@@ -16,11 +16,8 @@ function calculate(uploadTime: string) {
 		return timeAgo.format(Date.parse(uploadTime), 'round');
 	} catch (e) {}
 }
-useHead({
-	title: 'i.rond.cc - screenshot uploader',
-});
 useSeoMeta({
-	title: `${config.public.domain} - screenshot uploader`,
+	title: `${config.public.domain.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '').split('.')[0]} - screenshot uploader`,
 	ogImage: `${config.public.domain}/api/file/${fileName}`,
 	twitterCard: 'summary_large_image',
 });
