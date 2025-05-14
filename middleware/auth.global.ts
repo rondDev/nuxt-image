@@ -11,22 +11,19 @@ export default async function defineNuxtRouteMiddleware() {
     }
 
     const res = await $fetch('/api/verify-session');
-    if (!res || !res.valid) {
-      return {
-        error: 'No user',
-      };
+    if (res.valid) {
+      const u = res.user;
+      user.$patch({
+        id: u.id,
+        createdAt: u.createdAt,
+        updatedAt: u.updatedAt,
+        username: u.username,
+        email: u.email,
+        prefs: u.prefs,
+        uploadKey: u.uploadKey,
+      });
+      adze.info('[middleware | user.$state]', user.$state);
     }
-    const u = res.user;
-    user.$patch({
-      id: u.id,
-      createdAt: u.createdAt,
-      updatedAt: u.updatedAt,
-      username: u.username,
-      email: u.email,
-      prefs: u.prefs,
-      uploadKey: u.uploadKey,
-    });
-    adze.info('[middleware | user.$state]', user.$state);
   } catch (e) {
     adze.error('[auth.global.ts | catch]', e);
   }
